@@ -1,0 +1,84 @@
+---
+title: "SOM based index "
+bibliography: bibliografia.bib
+output: 
+  html_document:
+      collapsed: false
+---
+
+
+```{r,warning=FALSE,message=FALSE,error=FALSE}
+library(sp)
+library(rgeos)
+library(rgdal)
+```
+
+Lectura de datos
+```{r ,echo=T, results='hide', message=F, warning=F}
+CLUSTER<-readOGR('data/CLUSTER.shp')
+```
+
+
+Distancia de Ajedrez para cada neurona
+
+```{r}
+o<-as.data.frame(matrix(0,81,81))
+colnames(o)<-1:81
+t<-as.matrix(cbind(9:1,18:10,27:19,36:28,45:37,54:46,63:55,72:64,81:73))
+C<-1
+for(j in 1:dim(t)[2]){
+  for(i in 1:dim(t)[1]){
+    F<-1
+    for(l in 1:dim(t)[2]){
+      for(k in 1:dim(t)[1]){
+        d<-max(c(abs(i-k),abs(j-l)))
+        o[F,C]<-d
+        F<-F+1
+      }
+    }
+    C<-C+1
+  }
+}
+```
+
+Matriz de distancias geográficas
+
+```{r}
+centroides<-gCentroid(CLUSTER,byid = TRUE)
+dist<-spDists(centroides)
+dist<-as.data.frame(dist)
+colnames(dist)<-as.numeric(rownames(centroides@coords))+1
+rownames(dist)<-as.numeric(rownames(centroides@coords))+1
+
+O<-as.data.frame(matrix(0,length(colnames(dist)),length(colnames(dist))))
+colnames(O)<-colnames(dist)
+rownames(O)<-colnames(dist)
+
+for(i in 1:dim(O)[1]){
+  for(j in 1:dim(O)[2]){
+    Nf<-CLUSTER$NEUR[i]
+    Nc<-CLUSTER$NEUR[j]
+    D<-o[Nf,Nc]
+    O[i,j]<-D
+  }
+}
+
+DGEO<-NULL
+for(i in 2:dim(dist)[1]){
+  for(j in 1:(i-1)){
+    DGEO<-c(DGEO,dist[i,j])
+  }
+}
+
+DSOM<-NULL
+for(i in 2:dim(O)[1]){
+  for(j in 1:(i-1)){
+    DSOM<-c(DSOM,O[i,j])
+  }
+}
+```
+```{r}
+cor(DGEO,DSOM)
+```
+
+

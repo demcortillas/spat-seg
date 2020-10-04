@@ -1,0 +1,68 @@
+---
+title: "Selección de variables"
+date: 23/09/2020
+bibliography: bibliografia.bib
+output: 
+  html_document:
+      code_folding: show
+      collapsed: false
+      toc: yes
+      toc_float: 
+         collapsed: false
+
+header-includes:
+   - \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+   - \usepackage[utf8]{inputenc}
+   - \usepackage{booktabs}
+---
+
+# Escolaridad del jefe de hogar como proxy del nivel socioeconómico por hogar
+
+En todos los trabajos de segregación socioespacial citados en éste estudio que ocuparon algún censo en América Latina, se acercaron a la distinción socioeconómica a través de la escolaridad del jefe de hogar. Ahora bien la relación del nivel socioeconómico con la escolaridad de el o la jefe de hogar según [@pobreza2], consiste en que  éste es el individuo que encabeza una unidad doméstica y que teóricamente debiese tomar las decisiones importantes que afectan a los miembros del hogar, quien aporta mayor ingreso al hogar y quien administra y controla el gasto familiar.
+
+Si se analizan los resultados de la encuesta CASEN en base al estudio de [@pobreza1] se entiende que todos los indicadores de educación (analfabetismo, años de escolaridad, porcentaje sin educación media completa) en conjunto con los de acceso al empleo y calidad de la inserción laboral (porcentajes de asalariados sin contrato laboral, porcentaje de ocupados sin cotización previsional) son sistemáticamente más desfavorables para la población pobre que para la población no-pobre. En términos de acceso al empleo y calidad de la inserción laboral, el desempleo afecta más fuertemente a la población más vulnerable y existen proporcionalmente muchos más asalariados sin contrato y sin cotización previsional.
+
+# Tasa de inmigración intrametropolitana ($TII_{k}$)
+
+La formación capitalista del país no ha cesado de profundizar y muestra de aquello es el perfeccionamiento del mercado de la tierra urbana dando como resultado desigualdades y segregación relacionado inmediatamente al marco de la globalización y el crecimiento de capitales con destino inmobiliario fortalecido además por el ingreso de capitales extranjeros y de empresas. Así, se muestra una dinámica de oferta diversificada de oportunidades habitacionales donde existe un rol de decisión de los hogares a decidir la localidad. *Dicha decisión no está exenta de a decidir la nueva localidad del territorio metropolitano aspirando a separarse de los que son socialmente distintos y al mismo tiempo, de acercarse a los que pertenecen al mismo grupo social* [@TMIortiz].
+
+A comienzos del siglo XXI las nuevas elites construyen su estatus e identidad dejando de centrarse en los bienes ostentosos y apelando más al tipo de experiencia que alcanza la lógica residencial que también refiere al entorno construido y al paisaje. Antes era esperable encontrar un cono de alta renta, donde la elite hace emerger un comercio entre su residencia y el casco histórico, sin embargo en la actualidad dicho emplazamiento se hacia los barrios cerrados legitimado a través de la planificación urbana y la zonificación orientada a los intereses inmobiliarios [@napadensky2019atractivos].
+
+Ya en términos operatorios, definimos la tasa de inmigración de los últimos 5 años antes del levantamiento de los datos como:
+
+\begin{equation}
+P_{k}=IM_{k}+NIM_{k}
+\end{equation}
+
+y por último
+
+\begin{equation}
+TII_{k}=\dfrac{IM_{k}}{NIM_{k}}
+\end{equation}
+
+donde $P_{k}$ es la población total del lattice estudiado (sin considerar la que no había nacido), $TII_{k}$ es la tasa de inmigración intrametropolitana, $IM_{k}$ es la cantidad (de personas) que inmigraron *hacia* la zona y $NIM_{k}$ es la población que no migró (se mantuvo viviendo en su sector) medido en porcentaje. El resultado es un vector de la TII por zona $k$ ($TII_{k}$).
+
+Para efectos de la creación de la variable, es necesario aclarar que se contabiliza todo tipo de flujo hacia el AMC, no solo la población que ya estaba establecida en el área, sino la que llegó desde cualquier lugar exterior lo que incluye flujo internacionales.
+
+
+# Porcentaje de hacinamiento zonal
+
+La motivación de la inclusión de este índice consiste en relacionar inmediatamente las tendencias de pobreza en conjunto con la posibilidad de segregación. No es habitual encontrar en la literatura de segregación socioespacial éste indicador, pero desde el punto de vista de los principios de la equidad en el diseño de vivienda y su localización entenderemos que las políticas habitacionales focalizadas en los estratos más pobres tienden a contribuir con la concentración de la pobreza. Para el caso de la vivienda, consiste en impactos de hacinamiento, segregación, espacios públicos deficientes [@quinteros2019desigualdad]. De esta forma, se trata al hacinamiento como el número de personas en la vivienda sobre el número de número de camas disponibles en la misma vivienda. Cuando esa razón es mayor o igual a $2.4$ se considerará como hacinada. Luego entonces, se define el porcentaje de hacinamiento zonal como el número de viviendas hacinadas de la zona sobre el total de la zona. En términos operatorios sería:
+
+$$PHZ_{k} = \frac{VivHac_{k}}{TotViv_{k}} $$ donde $PHZ$ es el Porcentaje de hacinamiento por zona $k$, $VivHac$ es la cantidad de viviendas hacinadas por zona $k$ y $TotViv_{k}$ es el total de viviendas por zona $k$.
+
+# Diversidad de usos de suelo zonal
+
+Indicador utilizado en el estudio \textit{Measuring Urban Diversities in Cities in Transformation: Case of Temuco, Chile} \citep{asuah2020measuring} entendido como el equilibrio en el desarrollo de suelo residencial y no residencial, donde los entornos ofrecen puntos de conexión y contacto con personas y recursos en una a distintas escalas pudiendo conducir a niveles más altos de interacción entre la población que habita dicho barrio con su entorno.
+
+Se define el índice de diversidad $H$ como:
+
+$$H_k = -\sum_{i}^{n}p(x_{ki})log(p(x_{ki})) $$
+
+donde $p(x_{i})$ es la probabilidad de encontrar el uso $x_i$ en la zona $k$.
+
+# Distancia hacia la periferia de la ciudad
+
+
+
+# Referencias

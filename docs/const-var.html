@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>const-var.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Segregación socioespacial</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    La segregación socioespacial (SSE)
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spat-seg.html">Del concepto</a>
+    </li>
+    <li>
+      <a href="seg-viv.html">SSE y políticas vivienda en AL y Chile</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="variables.html">Variables de estudio</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Metodología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="metodologia.html">Metodología</a>
+    </li>
+    <li>
+      <a href="const-var.html">Construcción de las variables</a>
+    </li>
+    <li>
+      <a href="whatevermenu2.html">Estadísticos descriptivos</a>
+    </li>
+    <li>
+      <a href="metodo.html">Self Organizing Maps</a>
+    </li>
+    <li>
+      <a href="whatevermenu2.html">Tipologías y descriptivos</a>
+    </li>
+    <li>
+      <a href="index-SOM.html">SOM SSE-Index</a>
+    </li>
+    <li>
+      <a href="whatevermenu3.html">Cartografías</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<blockquote>
+<p>Construcción de las variables de variables a partir de la base de datos del censo</p>
+</blockquote>
+<p>Importar paquetes a ocupar</p>
+<pre class="python"><code>import pandas as pd
+import geopandas as gpd
+from functool import reduce</code></pre>
+<p>Muchas de las veces la capacidad ram de los computadores no es capaz de cargar la base de microdatos del censo, por lo que es recomendable pasar los .csv que entrega INE a formato .db y luego exportar lo que necesitamos de ahí a un .csv</p>
+<pre class="python"><code>BD=&#39;BD.db&#39;
+COMUNAS_PERSONAS=sql2df(BD,&quot;SELECT * FROM PERSONAS WHERE COMUNA=8101 OR COMUNA=8102 OR COMUNA=8103 OR COMUNA=8108 OR COMUNA= 8110 OR COMUNA=8112&quot;)
+COMUNAS_PERSONAS.to_csv(&#39;BD_P_AMC.csv&#39;,encoding=&#39;utf-8&#39;)
+COMUNAS_VIVIENDAS=sql2df(BD,&quot;SELECT * FROM VIVIENDAS WHERE COMUNA=8101 OR COMUNA=8102 OR COMUNA=8103 OR COMUNA=8108 OR COMUNA= 8110 OR COMUNA=8112&quot;)
+COMUNAS_VIVIENDAS.to_csv(&#39;BD_V_AMC.csv&#39;,encoding=&#39;utf-8&#39;)</code></pre>
+<p>Una vez nos aseguramos que pudimos leer y exportar lo que necesitamos del archivo en formato .db, podemos ahora empezar a leer y preparar la base de datos</p>
+<p>Microdatos a nivel de personas</p>
+<pre class="python"><code>PAMC=pd.read_csv(r&#39;BD_P_AMC.csv&#39;) 
+PAMC=PAMC.sort_values(by=&#39;ID_ZL_PER&#39;)
+PAMC[&#39;ID_ZL_PER&#39;]=PAMC[&#39;ID_ZL_PER&#39;].astype(str)</code></pre>
+<p>Microdatos a nivel de vivienda</p>
+<pre class="python"><code>VIVAMC=pd.read_csv(&#39;BD_V_AMC.csv&#39;)
+VIVAMC[&#39;ID_ZL_VIV&#39;]=VIVAMC[&#39;ID_ZL_VIV&#39;].astype(str)</code></pre>
+<p>Se cargan los datos espaciales desde el .shp de de zonas urbanas del INE y se filtran por comuna</p>
+<pre class="python"><code>Zonas=gpd.read_file(r&#39;data\ZONA_C17.shp&#39;)
+
+CAMC=gpd.GeoDataFrame(Zonas.loc[(Zonas[&#39;COMUNA&#39;]==&#39;8101&#39;) |(Zonas[&#39;COMUNA&#39;]==&#39;8102&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8103&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8108&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8110&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8112&#39;)])</code></pre>
+<p>Se introducen los poli y bicentros</p>
+<pre class="python"><code>CBD=gpd.read_file(r&#39;data\CBD\CBD.shp&#39;)
+CBD_BI=gpd.read_file(r&#39;data\CBD\CBD_bi.shp&#39;)</code></pre>
+<p>Intersección del .shp con geocodigos</p>
+<pre class="python"><code>GCZ=CAMC.GEOCODIGO.astype(str).tolist()
+GCPAMC=PAMC.ID_ZL_PER.astype(str).tolist()
+GCVIVAMC=VIVAMC.ID_ZL_VIV.astype(str).tolist()
+d=[GCZ,GCPAMC,GCVIVAMC]
+
+INTER=list(reduce(set.intersection, [set(item) for item in d ]))
+
+PAMC=PAMC[PAMC[&#39;ID_ZL_PER&#39;].isin(INTER)]
+VIVAMC=VIVAMC[VIVAMC[&#39;ID_ZL_VIV&#39;].isin(INTER)]
+CAMC=CAMC[CAMC[&#39;GEOCODIGO&#39;].isin(INTER)]
+CAMC.crs=Zonas.crs</code></pre>
+<blockquote>
+<p>Una vez teniendo arreglado lo anterior, podemos empezar construir la base de datos</p>
+</blockquote>
+<div id="tasa-de-inmigración-intrametropolitana" class="section level1">
+<h1>Tasa de inmigración intrametropolitana</h1>
+<pre class="python"><code>MIG=PAMC.copy()
+MIG.loc[MIG[&#39;P11&#39;] == 1, [&#39;P11&#39;]] = 0
+MIG.loc[MIG[&#39;P11&#39;] == 2, [&#39;P11&#39;]] = 1
+MIG.loc[MIG[&#39;P11&#39;] == 3, [&#39;P11&#39;]] = 2
+MIG.loc[MIG[&#39;P11&#39;] == 4, [&#39;P11&#39;]] = 2
+MIG.loc[MIG[&#39;P11&#39;] == 5, [&#39;P11&#39;]] = 2
+MIG.loc[MIG[&#39;P11&#39;] == 6, [&#39;P11&#39;]] = 2
+MIG.loc[MIG[&#39;P11&#39;] == 7, [&#39;P11&#39;]] = 2
+MIG.loc[MIG[&#39;P11&#39;] == 8, [&#39;P11&#39;]] = 2
+MIG.loc[MIG[&#39;P11&#39;] == 9, [&#39;P11&#39;]] = 2
+MIG.loc[MIG[&#39;P11&#39;] == 99, [&#39;P11&#39;]] = None
+
+TMI1=[]
+TMI2=[]
+ID=INTER
+for i in range(len(ID)):
+    GC=ID[i]
+    COD_UNI=MIG.loc[MIG[&#39;ID_ZL_PER&#39;]==GC]
+    q=0
+    p=0
+    for j in range(COD_UNI.shape[0]):
+        if COD_UNI.iloc[j,17]==1: #En esta comuna
+            q=q+1
+        if COD_UNI.iloc[j,17]==2: #En otra comuna
+            p=p+1
+    TMI1.append(q)
+    TMI2.append(p)
+TMI1=pd.Series(TMI1) #En esta comuna
+TMI2=pd.Series(TMI2) # En otra comuna
+TII=TMI2/TMI1</code></pre>
+</div>
+<div id="porcentaje-jefes-de-hogar-con-escolaridad-menor-a-12-años" class="section level1">
+<h1>Porcentaje Jefes de hogar con escolaridad menor a 12 años</h1>
+<pre class="python"><code>JH=PAMC[(PAMC[&#39;P07&#39;]==1)]
+JH=JH.drop(JH[(JH[&#39;ESCOLARIDAD&#39;]==99) | (JH[&#39;ESCOLARIDAD&#39;]==99)].index)
+EJH14=[]
+TPER=[]
+ID=INTER
+for i in range(len(ID)):
+    GC = ID[i]
+    COD_UNI = JH.loc[MIG[&#39;ID_ZL_PER&#39;] == GC]
+    q=0
+    p=0
+    for j in range(COD_UNI.shape[0]):
+        p=p+1
+        if COD_UNI.iloc[j, 41] &lt; 12:
+            q=q+1
+    EJH14.append(q)
+    TPER.append(p)
+EJH14=pd.Series(EJH14)
+TPER=pd.Series(TPER)
+PEJH14=EJH14/TPER</code></pre>
+</div>
+<div id="cantidad-de-personas-por-zona-posterior-densidad" class="section level1">
+<h1>Cantidad de personas por zona (posterior densidad)</h1>
+<pre class="python"><code>CP=[]
+ID=INTER
+for i in range(len(ID)):
+    GC = ID[i]
+    COD_UNI = PAMC.loc[PAMC[&#39;ID_ZL_PER&#39;] == GC]
+    q=0
+    for j in range(COD_UNI.shape[0]):
+        q=q+1
+    CP.append(q)
+CP=pd.Series(CP)</code></pre>
+</div>
+<div id="porcentaje-hacinamiento-zonal" class="section level1">
+<h1>Porcentaje hacinamiento zonal</h1>
+<pre class="python"><code>VIVAMC_MP=VIVAMC[(VIVAMC[&#39;P02&#39;]==1) &amp; (VIVAMC[&#39;P02&#39;]==1) != 99] #CON MORADORES PRESENTES P02==1
+VIVAMC_MP.loc[VIVAMC[&#39;P04&#39;]==0,[&#39;P04&#39;]]=1 #Las 599 viviendas con 0 habitaciones exclusivas de dormitorio, fueron consideradas con 1
+VIVAMC_MP = VIVAMC_MP.drop(VIVAMC_MP[VIVAMC_MP[&#39;CANT_PER&#39;]&gt;=200].index) #Se eliminan las anonimizadas
+HAC=VIVAMC_MP.CANT_PER/VIVAMC_MP.P04
+VIVAMC_MP[&#39;HAC&#39;]=HAC
+
+HAC_ZONAL=[]
+TOT_VIV=[]
+ID=INTER
+for i in range(len(ID)):
+    GC = ID[i]
+    COD_UNI = VIVAMC_MP.loc[VIVAMC_MP[&#39;ID_ZL_VIV&#39;] == GC]
+    CH=0
+    TV=0
+    for j in range(COD_UNI.shape[0]):
+        if COD_UNI.iloc[j, 20] &gt;=2.4:
+            CH=CH+1
+        TV=TV+1
+    TOT_VIV.append(TV)
+    HAC_ZONAL.append(CH)
+
+HAC_ZONAL=pd.Series(HAC_ZONAL)
+TOT_VIV=pd.Series(TOT_VIV)
+PHZ=HAC_ZONAL/TOT_VIV</code></pre>
+</div>
+<div id="agregar-variables-al-dataframe" class="section level1">
+<h1>Agregar Variables al Dataframe</h1>
+<pre class="python"><code>BD=pd.DataFrame({&#39;ID_ZL_PER&#39;:INTER})
+BD[&#39;TII&#39;]=TII
+BD[&#39;PEJH14&#39;]=PEJH12
+BD[&#39;CP&#39;]=CP 
+BD[&#39;PHZ&#39;]=PHZ</code></pre>
+</div>
+<div id="cruce-de-tablas-para-espacialización" class="section level1">
+<h1>Cruce de tablas para espacialización</h1>
+<pre class="python"><code>BD=CAMC.merge(BD,left_on=&#39;GEOCODIGO&#39;,right_on=&#39;ID_ZL_PER&#39;)
+BD.crs=Zonas.crs</code></pre>
+</div>
+<div id="distancia-de-cbd-a-centroide-más-cercano" class="section level1">
+<h1>Distancia de CBD a centroide más cercano</h1>
+<pre class="python"><code>EPSG=32719
+
+CBD_proj=CBD.copy()
+CBD_proj=CBD.to_crs(epsg=EPSG)  # Reproyeccion
+
+CBD_BI=CBD_BI.copy()
+CBD_BI_proj=CBD_BI.to_crs(epsg=EPSG)
+
+BD_proj=BD.copy()
+BD_proj=BD_proj.to_crs(epsg=EPSG)  # Reproyeccion
+BD_proj[&#39;geometry&#39;]=BD_proj.centroid # Cambio de geometria a centroides</code></pre>
+</div>
+<div id="para-policentros" class="section level1">
+<h1>Para policentros</h1>
+<pre class="python"><code>from shapely.ops import nearest_points
+from shapely.geometry import Point
+DIST1=[]
+for i in range(len(BD.ID_ZL_PER)):
+    OD=nearest_points(Point(BD_proj.geometry[i]),CBD_proj.geometry.unary_union) #0.- origen , 1.- destino, formato tupla; pero no sabes cual sale primero
+    ZL=Point(OD[0])
+    Nearest_CBD=Point(OD[1])
+    dist=ZL.distance(Nearest_CBD)
+    DIST1.append(dist)</code></pre>
+</div>
+<div id="para-bicentros" class="section level1">
+<h1>Para bicentros</h1>
+<pre class="python"><code>from shapely.ops import nearest_points
+from shapely.geometry import Point
+DIST2=[]
+for i in range(len(BD.ID_ZL_PER)):
+    OD=nearest_points(Point(BD_proj.geometry[i]),CBD_BI_proj.geometry.unary_union) #1.- origen , 2.- destino, formato tupla
+    ZL=Point(OD[0])
+    Nearest_CBD=Point(OD[1])
+    dist=ZL.distance(Nearest_CBD)
+    DIST2.append(dist)</code></pre>
+</div>
+<div id="cambio-a-polígonos" class="section level1">
+<h1>Cambio a polígonos</h1>
+<pre class="python"><code>BD_proj[&#39;geometry&#39;]=BD[&#39;geometry&#39;].to_crs(epsg=EPSG) #cambiamos a polígono no proyectado
+BD_proj[&#39;DPOLY&#39;]=DIST1
+BD_proj[&#39;DBI&#39;]=DIST2
+BD_proj[&#39;DPOLY&#39;]=BD_proj[&#39;DPOLY&#39;]/1000
+BD_proj[&#39;DBI&#39;]=BD_proj[&#39;DBI&#39;]/1000</code></pre>
+</div>
+<div id="cálculo-de-áreas" class="section level1">
+<h1>Cálculo de áreas</h1>
+<pre class="python"><code>BD_proj[&#39;AREA&#39;]=BD_proj.geometry.area/10000 #en metros hectareas</code></pre>
+</div>
+<div id="densidad" class="section level1">
+<h1>Densidad</h1>
+<pre class="python"><code>BD_proj[&#39;Densidad&#39;]=BD_proj.CP/BD_proj.AREA</code></pre>
+</div>
+<div id="exportar-a-shp" class="section level1">
+<h1>Exportar a shp</h1>
+<pre class="python"><code>BD_proj.to_file(r&#39;tu dirección&#39;)</code></pre>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;"><a href="https://github.com/demcortillas/">Diego Medina de Cortillas</a></p>
+<p style="text-align: center;"><span style="color: #808080;">diegmedina@udec.cl</span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://www.linkedin.com/in/diego-m-de-cortillas-632083177/" class="fa fa-linkedin"></a>
+    <a href="https://github.com/demcortillas/" class="fa fa-github"></a>
+</p>
+
+&nbsp;
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

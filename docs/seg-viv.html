@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Segregación socioespacial y políticas de vivienda en América Latina y Chile</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Segregación socioespacial</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    La segregación socioespacial (SSE)
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spat-seg.html">Del concepto</a>
+    </li>
+    <li>
+      <a href="seg-viv.html">SSE y políticas vivienda en AL y Chile</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="variables.html">Variables de estudio</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Metodología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="metodologia.html">Metodología</a>
+    </li>
+    <li>
+      <a href="const-var.html">Construcción de las variables</a>
+    </li>
+    <li>
+      <a href="whatevermenu2.html">Estadísticos descriptivos</a>
+    </li>
+    <li>
+      <a href="metodo.html">Self Organizing Maps</a>
+    </li>
+    <li>
+      <a href="whatevermenu2.html">Tipologías y descriptivos</a>
+    </li>
+    <li>
+      <a href="index-SOM.html">SOM SSE-Index</a>
+    </li>
+    <li>
+      <a href="whatevermenu3.html">Cartografías</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Segregación socioespacial y políticas de vivienda en América Latina y Chile</h1>
+
+</div>
+
+
+<div id="patrón-de-segregación-en-américa-latina" class="section level1">
+<h1>Patrón de segregación en América Latina</h1>
+<p>Según lo investigado en <span class="citation">(López-Martı́nez 2018)</span> a partir de los 80’s el suelo como mercancía cobra aún más valor y, en el contexto de América Latina, el estado tiene aún un rol regulador, pero que interviene con mayor fuerza en el mercado inmobiliario. Es en esta época donde se acercan los barrios marginales cerca de urbanizaciones de lujo, no significando que se dé mezcla social por haberse acortado la distancia entre las clases sociales. Las élites habitan conjuntos residenciales cerrados, con seguridad privada que les permite diferenciarse de los demás. Esta exclusividad posee principalmente servicios y equipamientos privados que los otros (población pobre) no cuentan.</p>
+<p>Una forma de segregación que provee el mercado inmobiliario es la promoción de la construcción de conjuntos cerrados que pasan a estar juntos por la concentración de capital y por la liberalización de mercados de suelo. La otra forma de segregación es através de las fronteras donde la vivienda segregada es aquella que no posee capital necesario para crear dichos espacios privilegiados, donde estos son población estigmatizada que a la cual se le tiene miedo y se le trazan dichas fronteras.</p>
+<p>De acuerdo a lo anterior se generan 2 tipos de injusticias: la primera es la <strong>mala redistribución</strong> de las estructuras económicas que no permiten que la población no se separe según nivel socioeconómico y la segunda es el <strong>reconocimiento fallido o desigualdad de estatus</strong> el cual se da cuando los grupos socioeconómicos más bajos son excluidos a las zonas con menores servicios y equipamiento de baja calidad. No legitimándose su cultura y a la vez estigmatizándola.</p>
+</div>
+<div id="pauperización-de-la-vivienda-social" class="section level1">
+<h1>Pauperización de la vivienda social</h1>
+<p>Respecto las razones técnicas de por qué la vivienda social en AL quedó alejada del centro y se acercó a la periferia se encuentran 3 fundamentales: La <strong>primera</strong> tiene que ver con que los terrenos a adquirir son más baratos. La <strong>segunda</strong> es que dichos terrenos son más amplios y soportan construcciones a grandes escalas. Y por último, la <strong>tercera</strong> es que existe menos competencia de las licitaciones con una <em>regulación del suelo más débil</em>. Consecuencia de aquello encontramos además deterioro en la accesibilidad al transporte, largas jornadas de desplazamiento y obviamente un equipamiento urbano inexistente o de mala calidad. A ello se le suma un impacto negativo en los ahorros e ingresos de estos hogares y una pérdida en las redes de apoyo <span class="citation">(Álvarez-Rivadulla 2019)</span>.</p>
+<p>En el caso chileno, a 2006 se reconocen logros como el fin de las ocupaciones ilegales, la dotación de servicios básicos a casi toda la población y la reducción del déficit habitacional con focalización hacia la población más pobre. A la vez se puede observar aumento en la segregación socioespacial y mala calidad de la vivienda social de construcción masiva que tenía el estado apoyando al sector privado. Es aquí donde a la vez que se dio paso a la segregación socioespacial más profunda, también se dio paso a preguntarse po la segregación institucional puesto que las residencias no solo influyen en la calidad de vida de las personas por sí mismas, sino que también la ubicación residencial fue acompañada de desigualdades como el sistema de impuestos territoriales y la municipalización de la salud y la educación. <em>Así no solo se aisló la vivienda a la periferia de la residencia sino que también se acompañó de la mala calidad de los barrios en donde se localizaron dichos proyectos</em> <span class="citation">(Ruiz-Tagle and Romano 2019)</span>.</p>
+</div>
+<div id="el-fallo-de-las-políticas-de-mezcla-social-en-chile" class="section level1">
+<h1>El fallo de las políticas de mezcla social en Chile</h1>
+<p>El concepto de mezcla social ha sido usado para referirse a la integración, a las comunidades de ingresos diversos y a la desconcentración de la pobreza. También se refiere a la variedad social es un lugar geográfico de cualquier índole social.</p>
+<p>La mezcla social gira en torno 5 conceptos clave. La primera es <em>la hipótesis del contacto interpersonal</em> mencionado anteriormente en los mecanismos de la segregación socioespacial como el efecto par, que tiene como fin reducir el prejuicio entre distintos grupos sociales. El segundo concepto clave se refiere a las <em>redes sociales</em> como capital social. Este enfatiza en que las clases medias son importantes para los espacios centrales de la ciudad, puesto que la mezcla social facilitaría el desarrollo de lazos débiles entre las personas de bajos ingresos para acceder a redes de empleo. El tercer concepto es el <em>control social</em> que supone que la presencia de habitantes de altos ingresos regularía las normas de comportamiento dando un mayor orden y seguridad. El cuarto concepto postula los <em>modelos de rol</em> donde la presencia de vecinos de alto estatus lleva la adopción de comportamientos socialmente aceptables. Finalmente se habla de la <em>geografía de la oportunidad</em> donde bajo los supuestos de libre mercado, un suelo debiese atraer bienes y servicios de mayor calidad que influencia las perspectivas de los habitantes de dicho sector <span class="citation">(Ruiz-Tagle and Romano 2019)</span>.</p>
+<p>Se pueden apreciar dos etapas de la política habitacional que tuvo entre sus objetivos la mezcla social de la población. La primera se dio a partir de los <em>Proyectos de Integración Social (PIS)</em> diseñados y aplicados en el primer mandato de Michelle Bachelet que entendió esta necesidad como mejorar la calidad de las viviendas y barrios existentes (Programa Quiero Mi Barrio, Protección al Patrimonio Familiar y Modificaciones a los reglamentos del Fondo Solidario de Vivienda), lograr ,mejor localización mediante subsidio al incentivo de compra de viviendas usadas (Programa Movilidad y Proyecto de Ley de Suelo e Integración Social), aprovechando el suelo existente que apunta a la flexibilización de los cambios de uso de suelo para instalar viviendas más la gestión de suelos públicos para la vivienda, y por último los programas de promueven la mezcla de grupos sociales con limitadas exigencias de localización (Proyecto de Desarrollo Urbano Condicionado, Proyecto de Integragación Social) <span class="citation">(Ruiz-Tagle and Romano 2019)</span>.</p>
+<p>La segunda etapa proviene del primer mandato de Sebastián Piñera con la Política Nacional de Desarrollo Urbano que propone dentro de sus ejes principales la integración social donde se diseñan los Proyctos de Reactivación económica e Integración Social (PREIS) y los Proyectos de Integración Social y Territorial (PIST).</p>
+<p>La síntesis de estas dos etapas de las políticas no es nada alentador. La hipótesis del contacto no funcionó. Siguen existiendo límites entre los habitantes del conjunto manifestados en conflictos, malestar y baja participación que se categorizan bajo la situación socioeconómica y de acuerdo a la modalidad de adquisición de la vivienda.</p>
+<p>No se logran los lazos débiles propuestos en las redes sociales dado que la diferencia socioeconómica de los habitantes es baja y no se genera capital social. Respecto al control social está presenta en los nuevos residentes mediante su proceso de selección. Se escogen a familias vulnerables de acuerdo a su estabilidad laboral y los antecedentes penales. Termina funcionando mediante la exclusión social. Los modelos de rol no se observan. No existe un grupo que dirija a la comunidad respecto al comportamiento (para el caso de los PIS). Y en el caso de los PREIS, los vecinos solo valoran la tenencia de un trabajo (independiente del ingreso) y no el nivel socioeconómico de los vecinos. Por último, dentro de las geografías de la oportunidad se consideró la inclusión de un colegio particular subvencionado (pagado y orientado a los sectores medios), lo cual representó una ventaja comparativa de mercado <span class="citation">(Ruiz-Tagle and Romano 2019)</span>.</p>
+</div>
+<div id="referencias" class="section level1 unnumbered">
+<h1>Referencias</h1>
+<div id="refs" class="references">
+<div id="ref-alvarez2019hacia">
+<p>Álvarez-Rivadulla, Marı́a José. 2019. “HACIA Ciudades Incluyentes, El Ods 11 Y El Reto de La SegregaciÓN Socioespacial En AmÉRICA Latina.” PhD thesis, CUNY Graduate Center.</p>
+</div>
+<div id="ref-lopez2018segregacion">
+<p>López-Martı́nez, Alexandra. 2018. “Segregación Socioespacial Bajo El Nuevo Modelo de Ciudad En América Latina. Caracterı́sticas, Perspectivas E Implicaciones.” <em>Hallazgos</em> 15 (30): 99–124.</p>
+</div>
+<div id="ref-ruiz2019mezcla">
+<p>Ruiz-Tagle, Javier, and Scarlet Romano. 2019. “Mezcla Social E Integración Urbana: Aproximaciones Teóricas Y Discusión Del Caso Chileno.” <em>Revista INVI</em> 34 (95): 45–69.</p>
+</div>
+</div>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;"><a href="https://github.com/demcortillas/">Diego Medina de Cortillas</a></p>
+<p style="text-align: center;"><span style="color: #808080;">diegmedina@udec.cl</span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://www.linkedin.com/in/diego-m-de-cortillas-632083177/" class="fa fa-linkedin"></a>
+    <a href="https://github.com/demcortillas/" class="fa fa-github"></a>
+</p>
+
+&nbsp;
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Selección de variables</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Segregación socioespacial</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    La segregación socioespacial (SSE)
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spat-seg.html">Del concepto</a>
+    </li>
+    <li>
+      <a href="seg-viv.html">SSE y políticas vivienda en AL y Chile</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="variables.html">Variables de estudio</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Metodología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="metodologia.html">Metodología</a>
+    </li>
+    <li>
+      <a href="const-var.html">Construcción de las variables</a>
+    </li>
+    <li>
+      <a href="whatevermenu2.html">Estadísticos descriptivos</a>
+    </li>
+    <li>
+      <a href="metodo.html">Self Organizing Maps</a>
+    </li>
+    <li>
+      <a href="whatevermenu2.html">Tipologías y descriptivos</a>
+    </li>
+    <li>
+      <a href="index-SOM.html">SOM SSE-Index</a>
+    </li>
+    <li>
+      <a href="whatevermenu3.html">Cartografías</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Selección de variables</h1>
+<h4 class="date">23/09/2020</h4>
+
+</div>
+
+
+<div id="escolaridad-del-jefe-de-hogar-como-proxy-del-nivel-socioeconómico-por-hogar" class="section level1">
+<h1>Escolaridad del jefe de hogar como proxy del nivel socioeconómico por hogar</h1>
+<p>En todos los trabajos de segregación socioespacial citados en éste estudio que ocuparon algún censo en América Latina, se acercaron a la distinción socioeconómica a través de la escolaridad del jefe de hogar. Ahora bien la relación del nivel socioeconómico con la escolaridad de el o la jefe de hogar según <span class="citation">(Hernández and Muñiz 2015)</span>, consiste en que éste es el individuo que encabeza una unidad doméstica y que teóricamente debiese tomar las decisiones importantes que afectan a los miembros del hogar, quien aporta mayor ingreso al hogar y quien administra y controla el gasto familiar.</p>
+<p>Si se analizan los resultados de la encuesta CASEN en base al estudio de <span class="citation">(Solimano 2017)</span> se entiende que todos los indicadores de educación (analfabetismo, años de escolaridad, porcentaje sin educación media completa) en conjunto con los de acceso al empleo y calidad de la inserción laboral (porcentajes de asalariados sin contrato laboral, porcentaje de ocupados sin cotización previsional) son sistemáticamente más desfavorables para la población pobre que para la población no-pobre. En términos de acceso al empleo y calidad de la inserción laboral, el desempleo afecta más fuertemente a la población más vulnerable y existen proporcionalmente muchos más asalariados sin contrato y sin cotización previsional.</p>
+</div>
+<div id="tasa-de-inmigración-intrametropolitana-tii_k" class="section level1">
+<h1>Tasa de inmigración intrametropolitana (<span class="math inline">\(TII_{k}\)</span>)</h1>
+<p>La formación capitalista del país no ha cesado de profundizar y muestra de aquello es el perfeccionamiento del mercado de la tierra urbana dando como resultado desigualdades y segregación relacionado inmediatamente al marco de la globalización y el crecimiento de capitales con destino inmobiliario fortalecido además por el ingreso de capitales extranjeros y de empresas. Así, se muestra una dinámica de oferta diversificada de oportunidades habitacionales donde existe un rol de decisión de los hogares a decidir la localidad. <em>Dicha decisión no está exenta de a decidir la nueva localidad del territorio metropolitano aspirando a separarse de los que son socialmente distintos y al mismo tiempo, de acercarse a los que pertenecen al mismo grupo social</em> <span class="citation">(Ortiz and Escolano 2013)</span>.</p>
+<p>A comienzos del siglo XXI las nuevas elites construyen su estatus e identidad dejando de centrarse en los bienes ostentosos y apelando más al tipo de experiencia que alcanza la lógica residencial que también refiere al entorno construido y al paisaje. Antes era esperable encontrar un cono de alta renta, donde la elite hace emerger un comercio entre su residencia y el casco histórico, sin embargo en la actualidad dicho emplazamiento se hacia los barrios cerrados legitimado a través de la planificación urbana y la zonificación orientada a los intereses inmobiliarios <span class="citation">(Napadensky Pastene and Orellana McBride 2019)</span>.</p>
+<p>Ya en términos operatorios, definimos la tasa de inmigración de los últimos 5 años antes del levantamiento de los datos como:</p>
+<p><span class="math display">\[\begin{equation}
+P_{k}=IM_{k}+NIM_{k}
+\end{equation}\]</span></p>
+<p>y por último</p>
+<p><span class="math display">\[\begin{equation}
+TII_{k}=\dfrac{IM_{k}}{NIM_{k}}
+\end{equation}\]</span></p>
+<p>donde <span class="math inline">\(P_{k}\)</span> es la población total del lattice estudiado (sin considerar la que no había nacido), <span class="math inline">\(TII_{k}\)</span> es la tasa de inmigración intrametropolitana, <span class="math inline">\(IM_{k}\)</span> es la cantidad (de personas) que inmigraron <em>hacia</em> la zona y <span class="math inline">\(NIM_{k}\)</span> es la población que no migró (se mantuvo viviendo en su sector) medido en porcentaje. El resultado es un vector de la TII por zona <span class="math inline">\(k\)</span> (<span class="math inline">\(TII_{k}\)</span>).</p>
+<p>Para efectos de la creación de la variable, es necesario aclarar que se contabiliza todo tipo de flujo hacia el AMC, no solo la población que ya estaba establecida en el área, sino la que llegó desde cualquier lugar exterior lo que incluye flujo internacionales.</p>
+</div>
+<div id="porcentaje-de-hacinamiento-zonal" class="section level1">
+<h1>Porcentaje de hacinamiento zonal</h1>
+<p>La motivación de la inclusión de este índice consiste en relacionar inmediatamente las tendencias de pobreza en conjunto con la posibilidad de segregación. No es habitual encontrar en la literatura de segregación socioespacial éste indicador, pero desde el punto de vista de los principios de la equidad en el diseño de vivienda y su localización entenderemos que las políticas habitacionales focalizadas en los estratos más pobres tienden a contribuir con la concentración de la pobreza. Para el caso de la vivienda, consiste en impactos de hacinamiento, segregación, espacios públicos deficientes <span class="citation">(Quinteros 2019)</span>. De esta forma, se trata al hacinamiento como el número de personas en la vivienda sobre el número de número de camas disponibles en la misma vivienda. Cuando esa razón es mayor o igual a <span class="math inline">\(2.4\)</span> se considerará como hacinada. Luego entonces, se define el porcentaje de hacinamiento zonal como el número de viviendas hacinadas de la zona sobre el total de la zona. En términos operatorios sería:</p>
+<p><span class="math display">\[PHZ_{k} = \frac{VivHac_{k}}{TotViv_{k}} \]</span> donde <span class="math inline">\(PHZ\)</span> es el Porcentaje de hacinamiento por zona <span class="math inline">\(k\)</span>, <span class="math inline">\(VivHac\)</span> es la cantidad de viviendas hacinadas por zona <span class="math inline">\(k\)</span> y <span class="math inline">\(TotViv_{k}\)</span> es el total de viviendas por zona <span class="math inline">\(k\)</span>.</p>
+</div>
+<div id="diversidad-de-usos-de-suelo-zonal" class="section level1">
+<h1>Diversidad de usos de suelo zonal</h1>
+<p>Indicador utilizado en el estudio   entendido como el equilibrio en el desarrollo de suelo residencial y no residencial, donde los entornos ofrecen puntos de conexión y contacto con personas y recursos en una a distintas escalas pudiendo conducir a niveles más altos de interacción entre la población que habita dicho barrio con su entorno.</p>
+<p>Se define el índice de diversidad <span class="math inline">\(H\)</span> como:</p>
+<p><span class="math display">\[H_k = -\sum_{i}^{n}p(x_{ki})log(p(x_{ki})) \]</span></p>
+<p>donde <span class="math inline">\(p(x_{i})\)</span> es la probabilidad de encontrar el uso <span class="math inline">\(x_i\)</span> en la zona <span class="math inline">\(k\)</span>.</p>
+</div>
+<div id="distancia-hacia-la-periferia-de-la-ciudad" class="section level1">
+<h1>Distancia hacia la periferia de la ciudad</h1>
+</div>
+<div id="referencias" class="section level1 unnumbered">
+<h1>Referencias</h1>
+<div id="refs" class="references">
+<div id="ref-pobreza2">
+<p>Hernández, Daniel, and Patricia E Muñiz. 2015. “?‘ Qué Es Un Jefe de Hogar?” <em>Sociológica México</em>, no. 32: 23–35.</p>
+</div>
+<div id="ref-napadensky2019atractivos">
+<p>Napadensky Pastene, Aaron, and Alejandro Orellana McBride. 2019. “Atractivos Paisajı́sticos Y Dispersión Residencial de Grupos de Altos Ingresos:?‘ Una Nueva élite de Consumidores Experienciales? Caso Gran La Serena Y Gran Concepción, Chile, 1965-2012.” <em>Revista 180</em>, no. 43: 101–14.</p>
+</div>
+<div id="ref-TMIortiz">
+<p>Ortiz, Jorge, and Severino Escolano. 2013. “Movilidad Residencial Del Sector de Renta Alta Del Gran Santiago (Chile): Hacia El Aumento de La Complejidad de Los Patrones Socioespaciales de Segregación.” <em>EURE (Santiago)</em> 39 (118): 77–96.</p>
+</div>
+<div id="ref-quinteros2019desigualdad">
+<p>Quinteros, Victoria Paz López. 2019. “Desigualdad Programada. El Impacto de Los Programas de Vivienda Social En Base a Subsidio En Chile.” <em>Revista CIS</em> 16 (26): 55–75.</p>
+</div>
+<div id="ref-pobreza1">
+<p>Solimano, Andrés. 2017. “Estrategias de Desarrollo Económico En Chile: Crecimiento, Pobreza Estructural Y Desigualdad de Ingresos Y Riqueza.” <em>PROPUESTAS DESDE LA ECONOMÍA</em>, 63.</p>
+</div>
+</div>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;"><a href="https://github.com/demcortillas/">Diego Medina de Cortillas</a></p>
+<p style="text-align: center;"><span style="color: #808080;">diegmedina@udec.cl</span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://www.linkedin.com/in/diego-m-de-cortillas-632083177/" class="fa fa-linkedin"></a>
+    <a href="https://github.com/demcortillas/" class="fa fa-github"></a>
+</p>
+
+&nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

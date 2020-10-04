@@ -1,0 +1,39 @@
+name: "my-website"
+output_dir: "." # Esto es para que se compile en el rootdir
+navbar:
+  title: "Segregación socioespacial"
+  right:
+    - text: "Introducción"
+      href: index.html
+    - text: "La segregación socioespacial (SSE)"
+      menu:
+        - text: 'Del concepto'
+          href: spat-seg.html
+        - text: 'SSE y políticas vivienda en AL y Chile'
+          href: seg-viv.html
+      href: about.html
+    - text: "Variables de estudio"
+      href: variables.html
+    - text: "Metodología"
+      menu:
+        - text: 'Metodología'
+          href: metodologia.html
+        - text: 'Construcción de las variables'
+          href: const-var.html
+        - text: 'Estadísticos descriptivos'
+          href: whatevermenu2.html
+        - text: 'Self Organizing Maps'
+          href: metodo.html
+        - text: 'Tipologías y descriptivos'
+          href: whatevermenu2.html
+        - text: 'SOM SSE-Index'
+          href: index-SOM.html
+        - text: 'Cartografías'
+          href: whatevermenu3.html
+        
+          
+output:
+  html_document:
+    theme: flatly
+    include:
+      after_body: footer.html
