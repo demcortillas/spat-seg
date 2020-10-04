@@ -12,12 +12,12 @@ navbar:
         - text: 'SSE y políticas vivienda en AL y Chile'
           href: seg-viv.html
       href: about.html
-    - text: "Variables de estudio"
-      href: variables.html
     - text: "Metodología"
       menu:
         - text: 'Metodología'
           href: metodologia.html
+        - text: 'Variables Escogidas'
+          href: variables.html
         - text: 'Construcción de las variables'
           href: const-var.html
         - text: 'Estadísticos descriptivos'
