@@ -1,6 +1,6 @@
->Construcción de las variables de variables a partir de la base de datos del censo
+# Construcción de las variables a partir de la base de datos
 
-Importar paquetes a ocupar
+## Importar paquetes a ocupar
 
 ```python
 import pandas as pd
@@ -8,7 +8,7 @@ import geopandas as gpd
 from functool import reduce
 ```
 
-Muchas de las veces la capacidad ram de los computadores no es capaz de cargar la base de microdatos del censo, por lo que es recomendable pasar los .csv que entrega INE a formato .db y luego exportar lo que necesitamos de ahí a un .csv
+Muchas de las veces la capacidad ram de los computadores no es capaz de cargar la base de microdatos del censo, por lo que es recomendable pasar los .csv que entrega INE a formato `.db` y luego exportar lo que necesitamos a un `.csv`. La base de datos original se encuentra [aquí](https://drive.google.com/file/d/1ROtWwX4J4fWwnfj7QFe9iStDdAf9jF4p/view?usp=sharing). El método implementado se encuentra [aquí](https://github.com/demcortillas/methods).
 
 ```python
 BD='BD.db'
@@ -18,29 +18,31 @@ COMUNAS_VIVIENDAS=sql2df(BD,"SELECT * FROM VIVIENDAS WHERE COMUNA=8101 OR COMUNA
 COMUNAS_VIVIENDAS.to_csv('BD_V_AMC.csv',encoding='utf-8')
 ```
 
-Una vez nos aseguramos que pudimos leer y exportar lo que necesitamos del archivo en formato .db, podemos ahora empezar a leer y preparar la base de datos
+Una vez nos aseguramos que pudimos leer y exportar lo que necesitamos del archivo en formato `.db`, podemos ahora empezar a leer y preparar la base de datos
 
-Microdatos a nivel de personas
+## Microdatos y espacialidad
+
+*Microdatos a nivel de personas*
 
 ```python
 PAMC=pd.read_csv(r'BD_P_AMC.csv') 
 PAMC=PAMC.sort_values(by='ID_ZL_PER')
 PAMC['ID_ZL_PER']=PAMC['ID_ZL_PER'].astype(str)
 ```
-Microdatos a nivel de vivienda
+*Microdatos a nivel de vivienda*
 
 ```python
 VIVAMC=pd.read_csv('BD_V_AMC.csv')
 VIVAMC['ID_ZL_VIV']=VIVAMC['ID_ZL_VIV'].astype(str)
 ```
-Se cargan los datos espaciales desde el .shp de de zonas urbanas del INE y se filtran por comuna
+Se cargan los datos espaciales desde el `.shp` de de zonas urbanas del INE y se filtran por comuna
 
 ```python
 Zonas=gpd.read_file(r'data\ZONA_C17.shp')
 
 CAMC=gpd.GeoDataFrame(Zonas.loc[(Zonas['COMUNA']=='8101') |(Zonas['COMUNA']=='8102') | (Zonas['COMUNA']=='8103') | (Zonas['COMUNA']=='8108') | (Zonas['COMUNA']=='8110') | (Zonas['COMUNA']=='8112')])
 ```
-Se introducen los poli y bicentros
+## Poli y bicentros
 
 ```python
 CBD=gpd.read_file(r'data\CBD\CBD.shp')
@@ -65,7 +67,7 @@ CAMC.crs=Zonas.crs
 
 > Una vez teniendo arreglado lo anterior, podemos empezar construir la base de datos
 
-# Tasa de inmigración intrametropolitana
+### Tasa de inmigración intrametropolitana
 
 ```python
 MIG=PAMC.copy()
@@ -100,7 +102,7 @@ TMI2=pd.Series(TMI2) # En otra comuna
 TII=TMI2/TMI1
 ```
 
-# Porcentaje Jefes de hogar con escolaridad menor a 12 años
+### Porcentaje Jefes de hogar con escolaridad menor a 12 años
 
 ```python
 JH=PAMC[(PAMC['P07']==1)]
@@ -124,7 +126,7 @@ TPER=pd.Series(TPER)
 PEJH14=EJH14/TPER
 ```
 
-# Cantidad de personas por zona (posterior densidad)
+### Cantidad de personas por zona (posterior densidad)
 
 ```python
 CP=[]
@@ -139,7 +141,7 @@ for i in range(len(ID)):
 CP=pd.Series(CP)
 ```
 
-# Porcentaje hacinamiento zonal
+### Porcentaje hacinamiento zonal
 
 ```python
 VIVAMC_MP=VIVAMC[(VIVAMC['P02']==1) & (VIVAMC['P02']==1) != 99] #CON MORADORES PRESENTES P02==1
@@ -168,7 +170,7 @@ TOT_VIV=pd.Series(TOT_VIV)
 PHZ=HAC_ZONAL/TOT_VIV
 ```
 
-# Agregar Variables al Dataframe
+### Agregar Variables al Dataframe
 ```python
 BD=pd.DataFrame({'ID_ZL_PER':INTER})
 BD['TII']=TII
@@ -177,12 +179,12 @@ BD['CP']=CP
 BD['PHZ']=PHZ
 ```
 
-# Cruce de tablas para espacialización
+### Cruce de tablas para espacialización
 ```python
 BD=CAMC.merge(BD,left_on='GEOCODIGO',right_on='ID_ZL_PER')
 BD.crs=Zonas.crs
 ```
-# Distancia de CBD a centroide más cercano
+### Distancia de CBD a centroide más cercano
 
 ```python
 EPSG=32719
@@ -198,7 +200,7 @@ BD_proj=BD_proj.to_crs(epsg=EPSG)  # Reproyeccion
 BD_proj['geometry']=BD_proj.centroid # Cambio de geometria a centroides
 ```
 
-# Para policentros
+### Para policentros
 
 ```python
 from shapely.ops import nearest_points
@@ -212,7 +214,7 @@ for i in range(len(BD.ID_ZL_PER)):
     DIST1.append(dist)
 ```
 
-# Para bicentros
+### Para bicentros
 
 ```python
 from shapely.ops import nearest_points
@@ -226,7 +228,7 @@ for i in range(len(BD.ID_ZL_PER)):
     DIST2.append(dist)
 ```
 
-# Cambio a polígonos
+### Cambio a polígonos
 
 ```python
 BD_proj['geometry']=BD['geometry'].to_crs(epsg=EPSG) #cambiamos a polígono no proyectado
@@ -236,18 +238,18 @@ BD_proj['DPOLY']=BD_proj['DPOLY']/1000
 BD_proj['DBI']=BD_proj['DBI']/1000
 ```
 
-# Cálculo de áreas
+### Cálculo de áreas
 
 ```python
 BD_proj['AREA']=BD_proj.geometry.area/10000 #en metros hectareas
 ```
-# Densidad
+### Densidad
 
 ```python
 BD_proj['Densidad']=BD_proj.CP/BD_proj.AREA
 ```
 
-# Exportar a shp
+### Exportar a shp
 
 ```python
 BD_proj.to_file(r'tu dirección')

@@ -338,32 +338,37 @@ $(document).ready(function () {
 </div>
 
 
-<blockquote>
-<p>Construcción de las variables de variables a partir de la base de datos del censo</p>
-</blockquote>
-<p>Importar paquetes a ocupar</p>
+<div id="construcción-de-las-variables-a-partir-de-la-base-de-datos" class="section level1">
+<h1>Construcción de las variables a partir de la base de datos</h1>
+<div id="importar-paquetes-a-ocupar" class="section level2">
+<h2>Importar paquetes a ocupar</h2>
 <pre class="python"><code>import pandas as pd
 import geopandas as gpd
 from functool import reduce</code></pre>
-<p>Muchas de las veces la capacidad ram de los computadores no es capaz de cargar la base de microdatos del censo, por lo que es recomendable pasar los .csv que entrega INE a formato .db y luego exportar lo que necesitamos de ahí a un .csv</p>
+<p>Muchas de las veces la capacidad ram de los computadores no es capaz de cargar la base de microdatos del censo, por lo que es recomendable pasar los .csv que entrega INE a formato <code>.db</code> y luego exportar lo que necesitamos a un <code>.csv</code>. La base de datos original se encuentra <a href="https://drive.google.com/file/d/1ROtWwX4J4fWwnfj7QFe9iStDdAf9jF4p/view?usp=sharing">aquí</a>. El método implementado se encuentra <a href="https://github.com/demcortillas/methods">aquí</a>.</p>
 <pre class="python"><code>BD=&#39;BD.db&#39;
 COMUNAS_PERSONAS=sql2df(BD,&quot;SELECT * FROM PERSONAS WHERE COMUNA=8101 OR COMUNA=8102 OR COMUNA=8103 OR COMUNA=8108 OR COMUNA= 8110 OR COMUNA=8112&quot;)
 COMUNAS_PERSONAS.to_csv(&#39;BD_P_AMC.csv&#39;,encoding=&#39;utf-8&#39;)
 COMUNAS_VIVIENDAS=sql2df(BD,&quot;SELECT * FROM VIVIENDAS WHERE COMUNA=8101 OR COMUNA=8102 OR COMUNA=8103 OR COMUNA=8108 OR COMUNA= 8110 OR COMUNA=8112&quot;)
 COMUNAS_VIVIENDAS.to_csv(&#39;BD_V_AMC.csv&#39;,encoding=&#39;utf-8&#39;)</code></pre>
-<p>Una vez nos aseguramos que pudimos leer y exportar lo que necesitamos del archivo en formato .db, podemos ahora empezar a leer y preparar la base de datos</p>
-<p>Microdatos a nivel de personas</p>
+<p>Una vez nos aseguramos que pudimos leer y exportar lo que necesitamos del archivo en formato <code>.db</code>, podemos ahora empezar a leer y preparar la base de datos</p>
+</div>
+<div id="microdatos-y-espacialidad" class="section level2">
+<h2>Microdatos y espacialidad</h2>
+<p><em>Microdatos a nivel de personas</em></p>
 <pre class="python"><code>PAMC=pd.read_csv(r&#39;BD_P_AMC.csv&#39;) 
 PAMC=PAMC.sort_values(by=&#39;ID_ZL_PER&#39;)
 PAMC[&#39;ID_ZL_PER&#39;]=PAMC[&#39;ID_ZL_PER&#39;].astype(str)</code></pre>
-<p>Microdatos a nivel de vivienda</p>
+<p><em>Microdatos a nivel de vivienda</em></p>
 <pre class="python"><code>VIVAMC=pd.read_csv(&#39;BD_V_AMC.csv&#39;)
 VIVAMC[&#39;ID_ZL_VIV&#39;]=VIVAMC[&#39;ID_ZL_VIV&#39;].astype(str)</code></pre>
-<p>Se cargan los datos espaciales desde el .shp de de zonas urbanas del INE y se filtran por comuna</p>
+<p>Se cargan los datos espaciales desde el <code>.shp</code> de de zonas urbanas del INE y se filtran por comuna</p>
 <pre class="python"><code>Zonas=gpd.read_file(r&#39;data\ZONA_C17.shp&#39;)
 
 CAMC=gpd.GeoDataFrame(Zonas.loc[(Zonas[&#39;COMUNA&#39;]==&#39;8101&#39;) |(Zonas[&#39;COMUNA&#39;]==&#39;8102&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8103&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8108&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8110&#39;) | (Zonas[&#39;COMUNA&#39;]==&#39;8112&#39;)])</code></pre>
-<p>Se introducen los poli y bicentros</p>
+</div>
+<div id="poli-y-bicentros" class="section level2">
+<h2>Poli y bicentros</h2>
 <pre class="python"><code>CBD=gpd.read_file(r&#39;data\CBD\CBD.shp&#39;)
 CBD_BI=gpd.read_file(r&#39;data\CBD\CBD_bi.shp&#39;)</code></pre>
 <p>Intersección del .shp con geocodigos</p>
@@ -381,8 +386,8 @@ CAMC.crs=Zonas.crs</code></pre>
 <blockquote>
 <p>Una vez teniendo arreglado lo anterior, podemos empezar construir la base de datos</p>
 </blockquote>
-<div id="tasa-de-inmigración-intrametropolitana" class="section level1">
-<h1>Tasa de inmigración intrametropolitana</h1>
+<div id="tasa-de-inmigración-intrametropolitana" class="section level3">
+<h3>Tasa de inmigración intrametropolitana</h3>
 <pre class="python"><code>MIG=PAMC.copy()
 MIG.loc[MIG[&#39;P11&#39;] == 1, [&#39;P11&#39;]] = 0
 MIG.loc[MIG[&#39;P11&#39;] == 2, [&#39;P11&#39;]] = 1
@@ -414,8 +419,8 @@ TMI1=pd.Series(TMI1) #En esta comuna
 TMI2=pd.Series(TMI2) # En otra comuna
 TII=TMI2/TMI1</code></pre>
 </div>
-<div id="porcentaje-jefes-de-hogar-con-escolaridad-menor-a-12-años" class="section level1">
-<h1>Porcentaje Jefes de hogar con escolaridad menor a 12 años</h1>
+<div id="porcentaje-jefes-de-hogar-con-escolaridad-menor-a-12-años" class="section level3">
+<h3>Porcentaje Jefes de hogar con escolaridad menor a 12 años</h3>
 <pre class="python"><code>JH=PAMC[(PAMC[&#39;P07&#39;]==1)]
 JH=JH.drop(JH[(JH[&#39;ESCOLARIDAD&#39;]==99) | (JH[&#39;ESCOLARIDAD&#39;]==99)].index)
 EJH14=[]
@@ -436,8 +441,8 @@ EJH14=pd.Series(EJH14)
 TPER=pd.Series(TPER)
 PEJH14=EJH14/TPER</code></pre>
 </div>
-<div id="cantidad-de-personas-por-zona-posterior-densidad" class="section level1">
-<h1>Cantidad de personas por zona (posterior densidad)</h1>
+<div id="cantidad-de-personas-por-zona-posterior-densidad" class="section level3">
+<h3>Cantidad de personas por zona (posterior densidad)</h3>
 <pre class="python"><code>CP=[]
 ID=INTER
 for i in range(len(ID)):
@@ -449,8 +454,8 @@ for i in range(len(ID)):
     CP.append(q)
 CP=pd.Series(CP)</code></pre>
 </div>
-<div id="porcentaje-hacinamiento-zonal" class="section level1">
-<h1>Porcentaje hacinamiento zonal</h1>
+<div id="porcentaje-hacinamiento-zonal" class="section level3">
+<h3>Porcentaje hacinamiento zonal</h3>
 <pre class="python"><code>VIVAMC_MP=VIVAMC[(VIVAMC[&#39;P02&#39;]==1) &amp; (VIVAMC[&#39;P02&#39;]==1) != 99] #CON MORADORES PRESENTES P02==1
 VIVAMC_MP.loc[VIVAMC[&#39;P04&#39;]==0,[&#39;P04&#39;]]=1 #Las 599 viviendas con 0 habitaciones exclusivas de dormitorio, fueron consideradas con 1
 VIVAMC_MP = VIVAMC_MP.drop(VIVAMC_MP[VIVAMC_MP[&#39;CANT_PER&#39;]&gt;=200].index) #Se eliminan las anonimizadas
@@ -476,21 +481,21 @@ HAC_ZONAL=pd.Series(HAC_ZONAL)
 TOT_VIV=pd.Series(TOT_VIV)
 PHZ=HAC_ZONAL/TOT_VIV</code></pre>
 </div>
-<div id="agregar-variables-al-dataframe" class="section level1">
-<h1>Agregar Variables al Dataframe</h1>
+<div id="agregar-variables-al-dataframe" class="section level3">
+<h3>Agregar Variables al Dataframe</h3>
 <pre class="python"><code>BD=pd.DataFrame({&#39;ID_ZL_PER&#39;:INTER})
 BD[&#39;TII&#39;]=TII
 BD[&#39;PEJH14&#39;]=PEJH12
 BD[&#39;CP&#39;]=CP 
 BD[&#39;PHZ&#39;]=PHZ</code></pre>
 </div>
-<div id="cruce-de-tablas-para-espacialización" class="section level1">
-<h1>Cruce de tablas para espacialización</h1>
+<div id="cruce-de-tablas-para-espacialización" class="section level3">
+<h3>Cruce de tablas para espacialización</h3>
 <pre class="python"><code>BD=CAMC.merge(BD,left_on=&#39;GEOCODIGO&#39;,right_on=&#39;ID_ZL_PER&#39;)
 BD.crs=Zonas.crs</code></pre>
 </div>
-<div id="distancia-de-cbd-a-centroide-más-cercano" class="section level1">
-<h1>Distancia de CBD a centroide más cercano</h1>
+<div id="distancia-de-cbd-a-centroide-más-cercano" class="section level3">
+<h3>Distancia de CBD a centroide más cercano</h3>
 <pre class="python"><code>EPSG=32719
 
 CBD_proj=CBD.copy()
@@ -503,8 +508,8 @@ BD_proj=BD.copy()
 BD_proj=BD_proj.to_crs(epsg=EPSG)  # Reproyeccion
 BD_proj[&#39;geometry&#39;]=BD_proj.centroid # Cambio de geometria a centroides</code></pre>
 </div>
-<div id="para-policentros" class="section level1">
-<h1>Para policentros</h1>
+<div id="para-policentros" class="section level3">
+<h3>Para policentros</h3>
 <pre class="python"><code>from shapely.ops import nearest_points
 from shapely.geometry import Point
 DIST1=[]
@@ -515,8 +520,8 @@ for i in range(len(BD.ID_ZL_PER)):
     dist=ZL.distance(Nearest_CBD)
     DIST1.append(dist)</code></pre>
 </div>
-<div id="para-bicentros" class="section level1">
-<h1>Para bicentros</h1>
+<div id="para-bicentros" class="section level3">
+<h3>Para bicentros</h3>
 <pre class="python"><code>from shapely.ops import nearest_points
 from shapely.geometry import Point
 DIST2=[]
@@ -527,25 +532,27 @@ for i in range(len(BD.ID_ZL_PER)):
     dist=ZL.distance(Nearest_CBD)
     DIST2.append(dist)</code></pre>
 </div>
-<div id="cambio-a-polígonos" class="section level1">
-<h1>Cambio a polígonos</h1>
+<div id="cambio-a-polígonos" class="section level3">
+<h3>Cambio a polígonos</h3>
 <pre class="python"><code>BD_proj[&#39;geometry&#39;]=BD[&#39;geometry&#39;].to_crs(epsg=EPSG) #cambiamos a polígono no proyectado
 BD_proj[&#39;DPOLY&#39;]=DIST1
 BD_proj[&#39;DBI&#39;]=DIST2
 BD_proj[&#39;DPOLY&#39;]=BD_proj[&#39;DPOLY&#39;]/1000
 BD_proj[&#39;DBI&#39;]=BD_proj[&#39;DBI&#39;]/1000</code></pre>
 </div>
-<div id="cálculo-de-áreas" class="section level1">
-<h1>Cálculo de áreas</h1>
+<div id="cálculo-de-áreas" class="section level3">
+<h3>Cálculo de áreas</h3>
 <pre class="python"><code>BD_proj[&#39;AREA&#39;]=BD_proj.geometry.area/10000 #en metros hectareas</code></pre>
 </div>
-<div id="densidad" class="section level1">
-<h1>Densidad</h1>
+<div id="densidad" class="section level3">
+<h3>Densidad</h3>
 <pre class="python"><code>BD_proj[&#39;Densidad&#39;]=BD_proj.CP/BD_proj.AREA</code></pre>
 </div>
-<div id="exportar-a-shp" class="section level1">
-<h1>Exportar a shp</h1>
+<div id="exportar-a-shp" class="section level3">
+<h3>Exportar a shp</h3>
 <pre class="python"><code>BD_proj.to_file(r&#39;tu dirección&#39;)</code></pre>
+</div>
+</div>
 </div>
 
 &nbsp;
