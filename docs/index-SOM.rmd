@@ -5,7 +5,7 @@ output:
   html_document:
       collapsed: false
 ---
-
+The methodology for the spatial segregation indicator is based on 2 publications ([@SOM1],[@SOM2]).This section reproduces the method of how to calculate the indicator for 81 neurons.
 
 ```{r,warning=FALSE,message=FALSE,error=FALSE}
 library(sp)
@@ -13,13 +13,13 @@ library(rgeos)
 library(rgdal)
 ```
 
-Lectura de datos
+Reading spatial database
 ```{r ,echo=T, results='hide', message=F, warning=F}
 CLUSTER<-readOGR('data/CLUSTER.shp')
 ```
 
 
-Distancia de Ajedrez para cada neurona
+Chess distance for each neuron
 
 ```{r}
 o<-as.data.frame(matrix(0,81,81))
@@ -41,7 +41,7 @@ for(j in 1:dim(t)[2]){
 }
 ```
 
-Matriz de distancias geográficas
+Geographic distance matrix
 
 ```{r}
 centroides<-gCentroid(CLUSTER,byid = TRUE)
@@ -77,8 +77,16 @@ for(i in 2:dim(O)[1]){
   }
 }
 ```
+
 ```{r}
-cor(DGEO,DSOM)
+plot(DSOM,DGEO)
 ```
 
+
+```{r}
+cor(DSOM,DGEO)
+
+```
+
+# References
 

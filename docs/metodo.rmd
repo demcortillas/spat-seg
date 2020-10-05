@@ -1,5 +1,5 @@
 ---
-title: "Self Organizing Maps (SOM)"
+title: "Self Organizing Maps (SOM) for spatial segregation"
 date: 23/09/2020
 output: 
   html_document:
@@ -21,6 +21,7 @@ library(SOMbrero)
 library(dplyr)
 library(ggplot2)
 library(markdown)
+library(summarytools)
 options(scipen = 999)
 set.seed(67)
 ```
@@ -77,8 +78,62 @@ summary(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4))
 summary(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5))
 summary(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6))
 ```
+Comparative boxplots
+```{r}
+boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$PEJH12,
+        main="Porcentaje Escolaridad de Jefes de hogar con menos de 12",
+        xlab="Cluster",
+        ylab="Porcentaje")
+```
 
+```{r}
+boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$TII,
+        main="Tasa inmigración Intrametropolitana zonal",
+        xlab="Cluster",
+        ylab="Porcentaje")
+```
+```{r}
+boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$PHZ,
+        main="Hacinamiento Zonal",
+        xlab="Cluster",
+        ylab="Porcentaje")
+```
+```{r}
+boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$H,
+        main="Diversidad de usos de suelo",
+        xlab="Cluster",
+        ylab="H (adimensional)")
+```
 
-
-
+```{r}
+boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$DBI,
+        main="Distancia a los centros",
+        xlab="Cluster",
+        ylab="kilometros")
+```
 

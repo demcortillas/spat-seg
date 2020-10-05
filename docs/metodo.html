@@ -11,7 +11,7 @@
 
 
 
-<title>Self Organizing Maps (SOM)</title>
+<title>Self Organizing Maps (SOM) for spatial segregation</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -281,9 +281,6 @@ $(document).ready(function () {
         <li>
   <a href="index.html">Introducción</a>
 </li>
-<li>
-  <a href="contexto-historico-politico.html">Antecedentes históricos</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     La segregación socioespacial (SSE)
@@ -291,6 +288,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="contexto-historico-politico.html">Antecedentes históricos</a>
+    </li>
     <li>
       <a href="spat-seg.html">Del concepto</a>
     </li>
@@ -349,7 +349,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Self Organizing Maps (SOM)</h1>
+<h1 class="title toc-ignore">Self Organizing Maps (SOM) for spatial segregation</h1>
 <h4 class="date">23/09/2020</h4>
 
 </div>
@@ -360,6 +360,7 @@ $(document).ready(function () {
 library(dplyr)
 library(ggplot2)
 library(markdown)
+library(summarytools)
 options(scipen = 999)
 set.seed(67)</code></pre>
 <p>Connecting with the data base</p>
@@ -506,6 +507,57 @@ MERGE&lt;-merge(data.frame(ID,NEUR,CLUSTER), select(ANALISIS, ID,PEJH12,TII,H,PH
 ##  Mean   : 6.2149  
 ##  3rd Qu.: 6.9988  
 ##  Max.   :21.1729</code></pre>
+<p>Comparative boxplots</p>
+<pre class="r"><code>boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$PEJH12,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$PEJH12,
+        main=&quot;Porcentaje Escolaridad de Jefes de hogar con menos de 12&quot;,
+        xlab=&quot;Cluster&quot;,
+        ylab=&quot;Porcentaje&quot;)</code></pre>
+<p><img src="metodo_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$TII,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$TII,
+        main=&quot;Tasa inmigración Intrametropolitana zonal&quot;,
+        xlab=&quot;Cluster&quot;,
+        ylab=&quot;Porcentaje&quot;)</code></pre>
+<p><img src="metodo_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$PHZ,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$PHZ,
+        main=&quot;Hacinamiento Zonal&quot;,
+        xlab=&quot;Cluster&quot;,
+        ylab=&quot;Porcentaje&quot;)</code></pre>
+<p><img src="metodo_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$H,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$H,
+        main=&quot;Diversidad de usos de suelo&quot;,
+        xlab=&quot;Cluster&quot;,
+        ylab=&quot;H (adimensional)&quot;)</code></pre>
+<p><img src="metodo_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>boxplot(subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==1)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==2)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==3)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==4)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==5)$DBI,
+        subset(select(ANALISIS,PEJH12,TII,PHZ,H,DBI),CLUSTER==6)$DBI,
+        main=&quot;Distancia a los centros&quot;,
+        xlab=&quot;Cluster&quot;,
+        ylab=&quot;kilometros&quot;)</code></pre>
+<p><img src="metodo_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 
 &nbsp;
 <hr />

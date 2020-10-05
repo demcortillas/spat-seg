@@ -277,9 +277,6 @@ $(document).ready(function () {
         <li>
   <a href="index.html">Introducción</a>
 </li>
-<li>
-  <a href="contexto-historico-politico.html">Antecedentes históricos</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     La segregación socioespacial (SSE)
@@ -287,6 +284,9 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="contexto-historico-politico.html">Antecedentes históricos</a>
+    </li>
     <li>
       <a href="spat-seg.html">Del concepto</a>
     </li>
@@ -342,12 +342,13 @@ $(document).ready(function () {
 </div>
 
 
+<p>The methodology for the spatial segregation indicator is based on 2 publications (<span class="citation">(Cottrell et al. 2017)</span>,<span class="citation">(Olteanu et al. 2019)</span>).This section reproduces the method of how to calculate the indicator for 81 neurons.</p>
 <pre class="r"><code>library(sp)
 library(rgeos)
 library(rgdal)</code></pre>
-<p>Lectura de datos</p>
+<p>Reading spatial database</p>
 <pre class="r"><code>CLUSTER&lt;-readOGR(&#39;data/CLUSTER.shp&#39;)</code></pre>
-<p>Distancia de Ajedrez para cada neurona</p>
+<p>Chess distance for each neuron</p>
 <pre class="r"><code>o&lt;-as.data.frame(matrix(0,81,81))
 colnames(o)&lt;-1:81
 t&lt;-as.matrix(cbind(9:1,18:10,27:19,36:28,45:37,54:46,63:55,72:64,81:73))
@@ -365,7 +366,7 @@ for(j in 1:dim(t)[2]){
     C&lt;-C+1
   }
 }</code></pre>
-<p>Matriz de distancias geográficas</p>
+<p>Geographic distance matrix</p>
 <pre class="r"><code>centroides&lt;-gCentroid(CLUSTER,byid = TRUE)
 dist&lt;-spDists(centroides)
 dist&lt;-as.data.frame(dist)
@@ -398,8 +399,21 @@ for(i in 2:dim(O)[1]){
     DSOM&lt;-c(DSOM,O[i,j])
   }
 }</code></pre>
-<pre class="r"><code>cor(DGEO,DSOM)</code></pre>
+<pre class="r"><code>plot(DSOM,DGEO)</code></pre>
+<p><img src="index-SOM_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>cor(DSOM,DGEO)</code></pre>
 <pre><code>## [1] 0.3347225</code></pre>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-SOM1">
+<p>Cottrell, Marie, Madalina Olteanu, Julien Randon-Furling, and Aurelien Hazan. 2017. “Multidimensional Urban Segregation: An Exploratory Case Study,” 1–7.</p>
+</div>
+<div id="ref-SOM2">
+<p>Olteanu, Madalina, Aurélien Hazan, Marie Cottrell, and Julien Randon-Furling. 2019. “Multidimensional Urban Segregation: Toward a Neural Network Measure.” <em>Neural Computing and Applications</em>, 1–13.</p>
+</div>
+</div>
+</div>
 
 &nbsp;
 <hr />

@@ -6,15 +6,15 @@ navbar:
     - text: "Introducción"
       href: index.html
       
-    - text: "Antecedentes históricos"
-      href: contexto-historico-politico.html
-      
     - text: "La segregación socioespacial (SSE)"
       menu:
+        - text: "Antecedentes históricos"
+          href: contexto-historico-politico.html
         - text: 'Del concepto'
           href: spat-seg.html
         - text: "Segregación socioespacial y políticas de vivienda en América Latina y Chile"
           href: seg-viv.html
+
           
     - text: "Metodología"
       menu:
@@ -24,12 +24,8 @@ navbar:
           href: variables.html
         - text: 'Construcción de las variables'
           href: const-var.html
-        - text: 'Estadísticos descriptivos'
-          href: whatevermenu2.html
         - text: 'Self Organizing Maps'
           href: metodo.html
-        - text: 'Tipologías y descriptivos'
-          href: whatevermenu2.html
         - text: 'SOM SSE-Index'
           href: index-SOM.html
         - text: 'Cartografías'
