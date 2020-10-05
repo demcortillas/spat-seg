@@ -15,7 +15,7 @@ header-includes:
    - \usepackage[utf8]{inputenc}
    - \usepackage{booktabs}
 ---
-
+<div class=text-justify>
 # Escolaridad del jefe de hogar como proxy del nivel socioeconómico por hogar
 
 En todos los trabajos de segregación socioespacial citados en éste estudio que ocuparon algún censo en América Latina, se acercaron a la distinción socioeconómica a través de la escolaridad del jefe de hogar. Ahora bien la relación del nivel socioeconómico con la escolaridad de el o la jefe de hogar según [@pobreza2], consiste en que  éste es el individuo que encabeza una unidad doméstica y que teóricamente debiese tomar las decisiones importantes que afectan a los miembros del hogar, quien aporta mayor ingreso al hogar y quien administra y controla el gasto familiar.
@@ -64,5 +64,5 @@ donde $p(x_{i})$ es la probabilidad de encontrar el uso $x_i$ en la zona $k$.
 # Distancia hacia la periferia de la ciudad
 
 
-
+</div>
 # Referencias

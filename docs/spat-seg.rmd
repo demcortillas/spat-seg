@@ -2,7 +2,7 @@
 title: "Conceptualización de la segregación socioespacial"
 bibliography: bibliografia.bib
 ---
-
+<div class=text-justify>
 # ¿Qué es la segregación socioespacial (SSE)?
 
 Puede definirse en términos generales como el grado de proximidad espacial o de aglomeración territorial de los hogares pertenecientes a un mismo grupo social. Ya sea que éste se defina en términos étnicos, etarios de preferencias religiosas o socioeconómicas entre otras posibilidades. Se manifiesta en forma de proximidad física entre los espacios residenciales de los diferentes grupos sociales, homogeneidad social de las gistintas subdivisiones territoriales en que se puede estructurar una ciudad o la concentración de grupos grupos sociales en zonas específicas de una ciudad [@rodriguez2004].
@@ -26,6 +26,6 @@ Por último, el tercer mecanismo es la <em>sociabilización institucional</em>. 
 
 <em>"Niños pobres en áreas segregadas serán considerados disfuncionales para la educación universitaria y serán por lo tanto socializados como tales; mientras que niños en barrios mixtos o integrados serán presionados pues las oportunidades disponibles merecen el esfuerzo"</em>[@SSE1]. 
 
-
+</div>
 
 # Referencias

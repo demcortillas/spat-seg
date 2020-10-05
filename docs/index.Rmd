@@ -2,6 +2,7 @@
 title: "Segregación Socioespacial Concepción"
 bibliography: bibliografia.bib
 ---
+<div class=text-justify>
 # Introducción
 
 ### Resumen
@@ -36,4 +37,4 @@ se analizará de la mano en conjunto de cómo las políticas de vivienda han sid
 El Área Metropolitana de Concepción (AMC) se ubica en la región del Bio Bio en la provincia de Concepción con coordenadas 36º49'38''S y 73º03'01''O. Dentro sus características geomorfológicas se encuentra la cordillera de la costa, el río Bio Bio y la costa del Pacífico del golfo de Arauco.
 
 ![Fuente: Elaboración propia en base a censo y biblioteca del congreso nacional](imagenes/AREA ESTUDIO-1.png)
-
+</div>

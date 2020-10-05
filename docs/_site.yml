@@ -29,7 +29,9 @@ navbar:
         - text: 'SOM SSE-Index'
           href: index-SOM.html
         - text: 'Cartografías'
-          href: whatevermenu3.html
+          
+    - text: "Discusión"
+      href: desc.html
         
           
 output:

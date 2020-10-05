@@ -2,7 +2,7 @@
 title: "Segregación socioespacial y políticas de vivienda en América Latina y Chile"
 bibliography: bibliografia.bib
 ---
-
+<div class=text-justify>
 # Patrón de segregación en América Latina
 
 Según lo investigado en [@lopez2018segregacion] a partir de los 80's el suelo como mercancía cobra aún más valor y, en el contexto de América Latina, el estado tiene aún un rol regulador, pero que interviene con mayor fuerza en el mercado inmobiliario. Es en esta época donde se acercan los barrios marginales cerca de urbanizaciones de lujo, no significando que se dé mezcla social por haberse acortado la distancia entre las clases sociales. Las élites habitan conjuntos residenciales cerrados, con seguridad privada que les permite diferenciarse de los demás. Esta exclusividad posee principalmente servicios y equipamientos privados que los otros (población pobre) no cuentan.
@@ -32,7 +32,7 @@ La síntesis de estas dos etapas de las políticas no es nada alentador. La hip�
 
 No se logran los lazos débiles propuestos en las redes sociales dado que la diferencia socioeconómica de los habitantes es baja y no se genera capital social. Respecto al control social está presenta en los nuevos residentes mediante su proceso de selección. Se escogen a familias vulnerables de acuerdo a su estabilidad laboral y los antecedentes penales. Termina funcionando mediante la exclusión social. Los modelos de rol no se observan. No existe un grupo que dirija a la comunidad respecto al comportamiento (para el caso de los PIS). Y en el caso de los PREIS, los vecinos solo valoran la tenencia de un trabajo (independiente del ingreso) y no el nivel socioeconómico de los vecinos. Por último, dentro de las geografías de la oportunidad se consideró la inclusión de un colegio particular subvencionado (pagado y orientado a los sectores medios), lo cual representó una ventaja comparativa de mercado [@ruiz2019mezcla].
 
-
+</div>
 
 # Referencias
 

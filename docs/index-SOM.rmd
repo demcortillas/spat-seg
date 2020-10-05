@@ -5,12 +5,13 @@ output:
   html_document:
       collapsed: false
 ---
-The methodology for the spatial segregation indicator is based on 2 publications ([@SOM1],[@SOM2]).This section reproduces the method of how to calculate the indicator for 81 neurons.
+<div class=text-justify> The methodology for the spatial segregation indicator is based on 2 publications ([@SOM1],[@SOM2]).This section reproduces the method of how to calculate the indicator for 81 neurons.
 
 ```{r,warning=FALSE,message=FALSE,error=FALSE}
 library(sp)
 library(rgeos)
 library(rgdal)
+library(ggplot2)
 ```
 
 Reading spatial database
@@ -78,8 +79,12 @@ for(i in 2:dim(O)[1]){
 }
 ```
 
-```{r}
+```{r,warning=FALSE,error=FALSE}
 plot(DSOM,DGEO)
+ggplot(data=data.frame(DSOM,DGEO),aes(x=DSOM,y=DGEO)) +
+    geom_bin2d(bin=20) +
+    scale_fill_continuous(type = "viridis") +
+    geom_smooth(method=lm, se=FALSE, fullrange=TRUE)
 ```
 
 
@@ -87,6 +92,6 @@ plot(DSOM,DGEO)
 cor(DSOM,DGEO)
 
 ```
-
+</div>
 # References
 

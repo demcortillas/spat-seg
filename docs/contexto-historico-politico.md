@@ -2,7 +2,7 @@
 title: "Antecedentes históricos"
 bibliography: bibliografia.bib
 ---
-
+<div class=text-justify>
 # Contexto histórico económico
 
 
@@ -78,5 +78,6 @@ De forma lamentable, esto se traduce en el abandono de la planificación normati
 Esta última tendencia está directamente relacionada con las Tecnologías de la Información Computacional (TIC) las cuales provocaron (y siguen provocando) una radical mutación de la morfología urbana, marcada por procesos de periurbanización y policentralización:
 
 *Actualmente los nuevos campos de externalidad no tienen ya una forma de área compacta, ni un radio limitado, sino que se configuran como retículas articuladas en centros y sistemas urbanos pequeños o grandes, en extensiones territoriales macro-regionales* [@mattos2006].
+</div>
 
 # Referencias

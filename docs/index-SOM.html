@@ -312,21 +312,16 @@ $(document).ready(function () {
       <a href="const-var.html">Construcción de las variables</a>
     </li>
     <li>
-      <a href="whatevermenu2.html">Estadísticos descriptivos</a>
-    </li>
-    <li>
       <a href="metodo.html">Self Organizing Maps</a>
-    </li>
-    <li>
-      <a href="whatevermenu2.html">Tipologías y descriptivos</a>
     </li>
     <li>
       <a href="index-SOM.html">SOM SSE-Index</a>
     </li>
-    <li>
-      <a href="whatevermenu3.html">Cartografías</a>
-    </li>
+    <li class="dropdown-header">Cartografías</li>
   </ul>
+</li>
+<li>
+  <a href="desc.html">Discusión</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -342,10 +337,12 @@ $(document).ready(function () {
 </div>
 
 
+<div class="text-justify">
 <p>The methodology for the spatial segregation indicator is based on 2 publications (<span class="citation">(Cottrell et al. 2017)</span>,<span class="citation">(Olteanu et al. 2019)</span>).This section reproduces the method of how to calculate the indicator for 81 neurons.</p>
 <pre class="r"><code>library(sp)
 library(rgeos)
-library(rgdal)</code></pre>
+library(rgdal)
+library(ggplot2)</code></pre>
 <p>Reading spatial database</p>
 <pre class="r"><code>CLUSTER&lt;-readOGR(&#39;data/CLUSTER.shp&#39;)</code></pre>
 <p>Chess distance for each neuron</p>
@@ -401,8 +398,15 @@ for(i in 2:dim(O)[1]){
 }</code></pre>
 <pre class="r"><code>plot(DSOM,DGEO)</code></pre>
 <p><img src="index-SOM_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data=data.frame(DSOM,DGEO),aes(x=DSOM,y=DGEO)) +
+    geom_bin2d(bin=20) +
+    scale_fill_continuous(type = &quot;viridis&quot;) +
+    geom_smooth(method=lm, se=FALSE, fullrange=TRUE)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="index-SOM_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
 <pre class="r"><code>cor(DSOM,DGEO)</code></pre>
 <pre><code>## [1] 0.3347225</code></pre>
+</div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 <div id="refs" class="references">
