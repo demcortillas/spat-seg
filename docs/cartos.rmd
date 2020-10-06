@@ -1,21 +1,160 @@
 ---
 title: "Cartografías"
 bibliography: bibliografia.bib
+output: 
+  html_document:
+      code_folding: show
+      collapsed: false
+      toc: yes
+      toc_float: 
+        collapsed: false
 ---
+# Librerías y preparación de los datos
 
-```{r,message=FALSE,warnings=FALSE,error=FALSE,include=TRUE,echoe=FALSE}
+## Librerías
+
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+library(ggplot2)
+library(ggspatial)
 library(rgdal)
-library(sp)
 library(leaflet)
 library(widgetframe)
+library(cartography)
+library(sf)
 SHP<-readOGR('data/CLUSTER.shp')
 shapeData <- spTransform(SHP, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 ```
 
-```{r}
-m <- leaflet(SHP) %>% 
-     setView(lng = -73.0502777778, lat = -36.8272222222, zoom = 11)
+## Preparación de los datos
 
-m %>% addProviderTiles(providers$CartoDB.Positron) %>% addPolygons(data=shapeData,weight=1,col = 'red')
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+SHP$CLUSTER <- as.factor(SHP$CLUSTER)
+factpal <- colorFactor(
+  palette = c('#b2182b','#ef8a62','#fddbc7','#d1e5f0','#67a9cf','#2166ac'), 
+  levels  = c("1","2","3","4","5","6")
+  )
+```
+
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=FALSE}
+# RGB ['rgb(178,24,43)','rgb(239,138,98)','rgb(253,219,199)','rgb(209,229,240)','rgb(103,169,207)','rgb(33,102,172)']
+```
+
+## Generación de cartografía de clusters en mapa dinámico
+
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+m <- leaflet() %>% 
+     setView(lng = -73.0502777778, lat = -36.8272222222, zoom = 11) %>%
+  
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group = "Default") %>%
+  addProviderTiles(providers$CartoDB.Positron, group="Light") %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
+  addTiles(group = "Mapas base") %>%
+  
+  addPolygons(
+    data=shapeData,
+    weight=1,
+    opacity=1,
+    color=~factpal(CLUSTER),
+    dashArray="3",
+    fillOpacity = 0.7,
+    group = "Cluster") %>%
+  
+  addLayersControl(
+    baseGroups = c("Default","Positron Lite", "Toner Lite"),
+    overlayGroups = c("Cluster"),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>%
+
+  addLegend(pal = factpal, values = c("1","2","3","4","5","6"), opacity = 1) 
+m
+```
+
+# Cartografías estáticas
+
+## Lectura y preparación de los datos
+
+Las siguientes funciones solo admiten lectura de bases de datos espaciales mediante el formato que provee la librería sf
+
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+
+SHP_0          <- st_read('data/CLUSTER.shp')
+SHP_0$PEJH14   <- SHP_0$PEJH14*100
+
+PEJH14<-ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = PEJH14), lwd=0) +
+  scale_fill_viridis_b(option = "cividis") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(2.5, "cm"),
+  pad_y = unit(7.5, "cm")
+  )
+
+TII<-ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = TII), lwd=0) +
+  scale_fill_viridis_b(option = "cividis") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(3, "cm"),
+  pad_y = unit(9, "cm")
+  )
+
+H<-ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = H), lwd=0) +
+  scale_fill_viridis_b(option = "cividis") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(2.5, "cm"),
+  pad_y = unit(8, "cm")
+  )
+
+DBI<-ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = DBI), lwd=0) +
+  scale_fill_viridis_b(option = "cividis",trans="sqrt") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(2.5, "cm"),
+  pad_y = unit(8, "cm")
+  )
+
+PHZ<-ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = PHZ), lwd=0) +
+  scale_fill_viridis_b(option = "cividis") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(3, "cm"),
+  pad_y = unit(9, "cm")
+  )
+```
+
+```{r}
+library(ggpubr)
+ggarrange(PEJH14,H,nrow=1,ncol=2)
+ggarrange(TII,PHZ,nrow=1,ncol=2)
+DBI
 ```
 
