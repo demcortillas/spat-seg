@@ -1,0 +1,21 @@
+---
+title: "Cartografías"
+bibliography: bibliografia.bib
+---
+
+```{r,message=FALSE,warnings=FALSE,error=FALSE,include=TRUE,echoe=FALSE}
+library(rgdal)
+library(sp)
+library(leaflet)
+library(widgetframe)
+SHP<-readOGR('data/CLUSTER.shp')
+shapeData <- spTransform(SHP, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+```
+
+```{r}
+m <- leaflet(SHP) %>% 
+     setView(lng = -73.0502777778, lat = -36.8272222222, zoom = 11)
+
+m %>% addProviderTiles(providers$CartoDB.Positron) %>% addPolygons(data=shapeData,weight=1,col = 'red')
+```
+
