@@ -76,11 +76,12 @@ m
 Las siguientes funciones solo admiten lectura de bases de datos espaciales mediante el formato que provee la librería sf
 
 ```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
-
 SHP_0          <- st_read('data/CLUSTER.shp')
 SHP_0$PEJH14   <- SHP_0$PEJH14*100
+```
 
-PEJH14<-ggplot(data = SHP_0) + 
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+ggplot(data = SHP_0) + 
   geom_sf(mapping=aes(fill = PEJH14), lwd=0) +
   scale_fill_viridis_b(option = "cividis") +
   coord_sf(crs = st_crs(32719)) + 
@@ -90,53 +91,14 @@ PEJH14<-ggplot(data = SHP_0) +
 annotation_north_arrow(
   height = unit(1, "cm"),
   width = unit(1, "cm"),
-  pad_x = unit(2.5, "cm"),
-  pad_y = unit(7.5, "cm")
+  pad_x = unit(3.5, "cm"),
+  pad_y = unit(10, "cm")
   )
 
-TII<-ggplot(data = SHP_0) + 
-  geom_sf(mapping=aes(fill = TII), lwd=0) +
-  scale_fill_viridis_b(option = "cividis") +
-  coord_sf(crs = st_crs(32719)) + 
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank()) +
-annotation_north_arrow(
-  height = unit(1, "cm"),
-  width = unit(1, "cm"),
-  pad_x = unit(3, "cm"),
-  pad_y = unit(9, "cm")
-  )
+```
 
-H<-ggplot(data = SHP_0) + 
-  geom_sf(mapping=aes(fill = H), lwd=0) +
-  scale_fill_viridis_b(option = "cividis") +
-  coord_sf(crs = st_crs(32719)) + 
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank()) +
-annotation_north_arrow(
-  height = unit(1, "cm"),
-  width = unit(1, "cm"),
-  pad_x = unit(2.5, "cm"),
-  pad_y = unit(8, "cm")
-  )
-
-DBI<-ggplot(data = SHP_0) + 
-  geom_sf(mapping=aes(fill = DBI), lwd=0) +
-  scale_fill_viridis_b(option = "cividis",trans="sqrt") +
-  coord_sf(crs = st_crs(32719)) + 
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank()) +
-annotation_north_arrow(
-  height = unit(1, "cm"),
-  width = unit(1, "cm"),
-  pad_x = unit(2.5, "cm"),
-  pad_y = unit(8, "cm")
-  )
-
-PHZ<-ggplot(data = SHP_0) + 
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+ggplot(data = SHP_0) + 
   geom_sf(mapping=aes(fill = PHZ), lwd=0) +
   scale_fill_viridis_b(option = "cividis") +
   coord_sf(crs = st_crs(32719)) + 
@@ -146,15 +108,55 @@ PHZ<-ggplot(data = SHP_0) +
 annotation_north_arrow(
   height = unit(1, "cm"),
   width = unit(1, "cm"),
-  pad_x = unit(3, "cm"),
-  pad_y = unit(9, "cm")
+  pad_x = unit(3.5, "cm"),
+  pad_y = unit(10, "cm")
   )
 ```
 
-```{r}
-library(ggpubr)
-ggarrange(PEJH14,H,nrow=1,ncol=2)
-ggarrange(TII,PHZ,nrow=1,ncol=2)
-DBI
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = DBI), lwd=0) +
+  scale_fill_viridis_b(option = "cividis",trans="sqrt") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(3.5, "cm"),
+  pad_y = unit(10, "cm")
+  )
 ```
 
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = H), lwd=0) +
+  scale_fill_viridis_b(option = "cividis") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(3.5, "cm"),
+  pad_y = unit(10, "cm")
+  )
+```
+
+```{r,warning=FALSE,message=FALSE,error=FALSE,include=TRUE,echo=TRUE}
+ggplot(data = SHP_0) + 
+  geom_sf(mapping=aes(fill = TII), lwd=0) +
+  scale_fill_viridis_b(option = "cividis") +
+  coord_sf(crs = st_crs(32719)) + 
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()) +
+annotation_north_arrow(
+  height = unit(1, "cm"),
+  width = unit(1, "cm"),
+  pad_x = unit(3.5, "cm"),
+  pad_y = unit(10, "cm")
+  )
+```
