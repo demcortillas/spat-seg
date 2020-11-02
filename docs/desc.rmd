@@ -111,7 +111,7 @@ boxplot(subset(select(SHP,PEJH14,TII,PHZ,H,DBI),CLUSTER==1)$DBI,
         subset(select(SHP,PEJH14,TII,PHZ,H,DBI),CLUSTER==3)$DBI,
         subset(select(SHP,PEJH14,TII,PHZ,H,DBI),CLUSTER==4)$DBI,
         subset(select(SHP,PEJH14,TII,PHZ,H,DBI),CLUSTER==5)$DBI,
-        subset(select(SHP,PEJH14,TII,PHZ,H,DBI),CLUSTER==6)$DBI,
+        
         main="Distancia a los centros (bicentros)",
         xlab="Cluster",
         ylab="Porcentaje")
